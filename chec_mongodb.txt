@@ -1,0 +1,52 @@
+ db.contactlist.insertMany([{lastname:'Ben Lahmer',firstname:'Fares',Email:'fares@gmail.com',age:26},{lastname:'Kefi',firstname:'Seif',Email:'Kefi@gmail.com',age:15},{lastname:'Fatnassi',firstname:'Sarra',Email:'sarra.f@gmail.com',age:40},{lastname:' Ben Yahia',firstname:'Rym',age:4},{lastname:'Cherif',firstname:'Sami',age:3}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("5f55f7ae13d1ecaeda77d341"),
+                ObjectId("5f55f7ae13d1ecaeda77d342"),
+                ObjectId("5f55f7ae13d1ecaeda77d343"),
+                ObjectId("5f55f7ae13d1ecaeda77d344"),
+                ObjectId("5f55f7ae13d1ecaeda77d345")
+        ]
+}
+> db.contactlist.findOne({_id:ObjectId("5f55f7ae13d1ecaeda77d341")})
+{
+        "_id" : ObjectId("5f55f7ae13d1ecaeda77d341"),
+        "lastname" : "Ben Lahmer",
+        "firstname" : "Fares",
+        "Email" : "fares@gmail.com",
+        "age" : 26
+}
+> db.contactlist.find({age:{$gt:18}})
+{ "_id" : ObjectId("5f55f73c13d1ecaeda77d340"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d341"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d343"), "lastname" : "Fatnassi", "firstname" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : 40 }
+
+> db.contactlist.find({$and:[{age:{$gt:18}},{lastname:/ah/}]})
+{ "_id" : ObjectId("5f55f73c13d1ecaeda77d340"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d341"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+
+> db.contactlist.update({lastname:'Kefi'},{$set:{firstname:'Anis'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.contactlist.find()
+{ "_id" : ObjectId("5f55f73c13d1ecaeda77d340"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d341"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d342"), "lastname" : "Kefi", "firstname" : "Anis", "Email" : "Kefi@gmail.com", "age" : 15 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d343"), "lastname" : "Fatnassi", "firstname" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : 40 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d344"), "lastname" : " Ben Yahia", "firstname" : "Rym", "age" : 4 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d345"), "lastname" : "Cherif", "firstname" : "Sami", "age" : 3 }
+
+> db.contactlist.findOneAndDelete({age:{$lt:5}})
+{
+        "_id" : ObjectId("5f55f7ae13d1ecaeda77d344"),
+        "lastname" : " Ben Yahia",
+        "firstname" : "Rym",
+        "age" : 4
+}
+> db.contactlist.find()
+{ "_id" : ObjectId("5f55f73c13d1ecaeda77d340"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d341"), "lastname" : "Ben Lahmer", "firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d342"), "lastname" : "Kefi", "firstname" : "Anis", "Email" : "Kefi@gmail.com", "age" : 15 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d343"), "lastname" : "Fatnassi", "firstname" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : 40 }
+{ "_id" : ObjectId("5f55f7ae13d1ecaeda77d345"), "lastname" : "Cherif", "firstname" : "Sami", "age" : 3 }
+>
